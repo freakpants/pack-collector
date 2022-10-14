@@ -1,0 +1,118 @@
+@import url("https://freakpants.ch/fut/php/css_new_card.css");
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+body{
+  text-transform: uppercase;
+  background: unset !important;
+}
+
+h1{
+  color: #1d5878 !important;
+}
+
+h2{
+  color: #ff4700 !important;
+}
+
+.card.fifa22{
+  height: 520px;
+    margin-top: 25px;
+}
+
+.card.fifa22.small{
+  transform: scale(.4);
+  height: 150px;
+}
+
+#bottom, #top{
+  z-index: -1;
+}
+
+.nation{
+  cursor: pointer;
+}
+
+#bottom{
+  background: url("assets/bottom.png");
+  background-size: cover;
+  width: 100vw;
+  height: 16vw;
+  bottom: 0px;
+  aspect-ratio: 6380/1149;
+  position: fixed;
+}
+
+#top{
+  background: url("assets/top.png");
+  width: 100vw;
+  background-size:cover;
+  position: fixed;
+  aspect-ratio: 6380/1022;
+}
+
+.ut-item-player-status--loan{
+  font-size: 36px;
+  width: 50px;
+  line-height: 50px;
+  z-index: 1;
+  height: 50px;
+  right: 121px;
+  top: 416px;
+  /* display: block; */
+  position: absolute;
+  z-index: 3;
+  text-align: center;
+  font-family: UltimateTeamCondensed;
+  font-weight: 600;
+  box-shadow: 0 1px 1px 0 rgb(0 0 0 / 25%);
+  background: linear-gradient(to bottom,#44a7db 0,#42a2d4 100%);
+  color: #fff;
+  border-radius: 25px;
+}
+
+#root{
+  position: absolute;
+  overflow-y: scroll;
+  top: 0px;
+  bottom: 120px;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+#root::-webkit-scrollbar {
+  display: none;
+}
+
+
+body{
+  margin-bottom: 20px;
+}
+
+.untradeable:before{
+  font-family: UltimateTeam-Icons,sans-serif;
+  color: white;
+  right: calc(50% + 16px);
+  top: 16px;
+  position: absolute;
+  width: 1.1em;
+  content: "\E07F";
+  z-index: 2;
+  font-size: 50px;
+}
+
+.MuiGrid-item{
+  display:flex;
+  justify-content: center;
+}
