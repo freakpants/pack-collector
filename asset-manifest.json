@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/pack-collector/static/css/main.8a602f68.css",
+    "main.css": "/pack-collector/static/css/main.53570e39.css",
     "main.js": "/pack-collector/static/js/main.198a3f5f.js",
     "static/js/787.4d6d0d5c.chunk.js": "/pack-collector/static/js/787.4d6d0d5c.chunk.js",
     "static/media/MATROSKA.ttf.svg": "/pack-collector/static/media/MATROSKA.ttf.36d972b523b1d230880a.svg",
@@ -13,12 +13,12 @@
     "static/media/rare.webp": "/pack-collector/static/media/rare.516cc7f3937d1f493470.webp",
     "static/media/gold.webp": "/pack-collector/static/media/gold.6cb6bb4dd2d137b79b1d.webp",
     "index.html": "/pack-collector/index.html",
-    "main.8a602f68.css.map": "/pack-collector/static/css/main.8a602f68.css.map",
+    "main.53570e39.css.map": "/pack-collector/static/css/main.53570e39.css.map",
     "main.198a3f5f.js.map": "/pack-collector/static/js/main.198a3f5f.js.map",
     "787.4d6d0d5c.chunk.js.map": "/pack-collector/static/js/787.4d6d0d5c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8a602f68.css",
+    "static/css/main.53570e39.css",
     "static/js/main.198a3f5f.js"
   ]
 }
