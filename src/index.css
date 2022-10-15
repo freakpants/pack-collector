@@ -26,6 +26,7 @@
 
 body {
   margin: 0;
+  background: unset;
   font-family: 'UltimateTeamCondensed';
 }
 
@@ -163,7 +164,6 @@ body{
 
 #root{
   width: 100vw;
-  padding-top: 20px;
 }
 
 .count-container{
