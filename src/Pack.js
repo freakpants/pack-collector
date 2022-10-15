@@ -32,7 +32,7 @@ class Pack extends Component {
           <div className="count-element">
             Untradeable: <br />
             {untradeable > 0 &&
-            <span class="modify-count"
+            <span className="modify-count"
               onClick={() => {
                 if(untradeable > 0){
                     onCountUpdate(id, untradeable - 1, false);
@@ -41,7 +41,7 @@ class Pack extends Component {
             >- </span>
   }
             {untradeable}
-            <span class="modify-count"
+            <span className="modify-count"
               onClick={() => {
                 onCountUpdate(id, untradeable + 1, false);
               }}
@@ -51,7 +51,7 @@ class Pack extends Component {
           <div className="count-element">
             Tradeable: <br />
             {tradeable > 0 &&
-            <span class="modify-count"
+            <span className="modify-count"
                 onClick={() => {
                     if(tradeable > 0){
                         onCountUpdate(id, tradeable - 1, true);
@@ -60,7 +60,7 @@ class Pack extends Component {
             >- </span>
     }
             {tradeable}
-            <span class="modify-count"
+            <span className="modify-count"
                 onClick={() => {
                     onCountUpdate(id, tradeable + 1, true);
                 }}

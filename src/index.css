@@ -29,8 +29,13 @@ body {
   font-family: 'UltimateTeamCondensed';
 }
 
-h2{
-  color: #ff4700 !important;
+h1{
+  font-family: 'UltimateTeamCondensed';
+  color:#eb6200;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-style: italic;
+  font-size: 70px;
 }
 
 .card.fifa22{
@@ -104,6 +109,7 @@ h2{
 
 body{
   margin-bottom: 20px;
+  padding-top:20px;
 }
 
 .untradeable:before{
@@ -157,6 +163,7 @@ body{
 
 #root{
   width: 100vw;
+  padding-top: 20px;
 }
 
 .count-container{
@@ -172,4 +179,12 @@ body{
 
 .modify-count{
   cursor: pointer;
+}
+
+.statsline.statsline{
+  font-size: 35px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: rgb(23 111 153);
+    margin-bottom: 30px;
 }
