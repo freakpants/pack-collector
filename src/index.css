@@ -158,3 +158,18 @@ body{
 #root{
   width: 100vw;
 }
+
+.count-container{
+  display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.count-element{
+  flex-grow: 1;
+  text-align: center;
+}
+
+.modify-count{
+  cursor: pointer;
+}
