@@ -1,26 +1,32 @@
+@font-face {
+  font-family: "MATROSKA";
+  src: url("fonts/MATROSKA.ttf.woff") format("woff"),
+    url("fonts/MATROSKA.ttf.svg#MATROSKA") format("svg"), url("fonts/MATROSKA.ttf.eot"),
+    url("fonts/MATROSKA.ttf.eot?#iefix") format("embedded-opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "UltimateTeam-Icons";
+  src: url("fonts/UltimateTeam-Icons.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "UltimateTeamCondensed";
+  src: url("fonts/UltimateTeamCondensed.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 @import url("https://freakpants.ch/fut/php/css_new_card.css");
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-body{
-  text-transform: uppercase;
-  background: unset !important;
-}
-
-h1{
-  color: #1d5878 !important;
+  font-family: 'UltimateTeamCondensed';
 }
 
 h2{
@@ -115,4 +121,40 @@ body{
 .MuiGrid-item{
   display:flex;
   justify-content: center;
+}
+
+.pack h1{
+  font-size: 40px;
+  color: #f8eede;
+  font-style: italic;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: unset;
+  height: 144px;
+}
+
+.pack.pack{
+  color: #f8eede;
+  border: 1px solid #556c95;
+  padding: 20px;
+  width: 410px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 30px;
+  font-family: 'UltimateTeamCondensed';
+}
+
+.pack img{
+  margin-top:20px;
+  margin-bottom: 20px;
+}
+
+.pack.MuiCard-root{
+  background-color: #1e242a;
+}
+
+#root{
+  width: 100vw;
 }
