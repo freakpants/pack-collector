@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/pack-collector/static/css/main.9a56e073.css",
-    "main.js": "/pack-collector/static/js/main.d9bd908e.js",
+    "main.css": "/pack-collector/static/css/main.8a602f68.css",
+    "main.js": "/pack-collector/static/js/main.cdfeef35.js",
     "static/js/787.4d6d0d5c.chunk.js": "/pack-collector/static/js/787.4d6d0d5c.chunk.js",
     "static/media/MATROSKA.ttf.svg": "/pack-collector/static/media/MATROSKA.ttf.36d972b523b1d230880a.svg",
     "static/media/bottom.png": "/pack-collector/static/media/bottom.b639689d8a578a0cf1d8.png",
@@ -13,12 +13,12 @@
     "static/media/rare.webp": "/pack-collector/static/media/rare.516cc7f3937d1f493470.webp",
     "static/media/gold.webp": "/pack-collector/static/media/gold.6cb6bb4dd2d137b79b1d.webp",
     "index.html": "/pack-collector/index.html",
-    "main.9a56e073.css.map": "/pack-collector/static/css/main.9a56e073.css.map",
-    "main.d9bd908e.js.map": "/pack-collector/static/js/main.d9bd908e.js.map",
+    "main.8a602f68.css.map": "/pack-collector/static/css/main.8a602f68.css.map",
+    "main.cdfeef35.js.map": "/pack-collector/static/js/main.cdfeef35.js.map",
     "787.4d6d0d5c.chunk.js.map": "/pack-collector/static/js/787.4d6d0d5c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9a56e073.css",
-    "static/js/main.d9bd908e.js"
+    "static/css/main.8a602f68.css",
+    "static/js/main.cdfeef35.js"
   ]
 }
