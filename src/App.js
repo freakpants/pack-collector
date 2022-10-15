@@ -55,6 +55,7 @@ class App extends Component {
     this.setState({ packs: response.data, allPacks: response.data }, () => {
       this.updateTotals();
     });
+  });
   }
 
   handleChange(e) {
