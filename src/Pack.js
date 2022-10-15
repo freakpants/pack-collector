@@ -18,58 +18,62 @@ class Pack extends Component {
         break;
     }
     return (
-      <Card className={"pack"}>
-        <h1>{name}</h1>
-        <CardMedia
-          component="img"
-          image={imageLink}
-          style={{ width: "200px" }}
+      <div className={"packs__item"}>
+        <div className="packs__item__title">
+          <h2>{name}</h2>
+        </div>
+        <img
+          alt={name}          
+          className={"packs__item__preview"}
+          src={imageLink}
         />
-        {coin_value} Coins
-        <br />
-        {fp} Fifa Points
-        <div className="count-container">
-          <div className="count-element">
-            Untradeable: <br />
-            {untradeable > 0 &&
-            <span className="modify-count"
-              onClick={() => {
-                if(untradeable > 0){
-                    onCountUpdate(id, untradeable - 1, false);
-                }
-              }}
-            >- </span>
-  }
-            {untradeable}
-            <span className="modify-count"
-              onClick={() => {
-                onCountUpdate(id, untradeable + 1, false);
-              }}
-            > +
-            </span>
-          </div>
-          <div className="count-element">
-            Tradeable: <br />
-            {tradeable > 0 &&
-            <span className="modify-count"
-                onClick={() => {
-                    if(tradeable > 0){
-                        onCountUpdate(id, tradeable - 1, true);
+        <div className="packs__item__pricing">
+          <span className={"packs__item__pricing__coins"}>{coin_value}</span> | <span className={"packs__item__pricing__points"}>{fp}</span>
+        </div>
+        <div className="packs__item__counter">
+          <div className="packs__item__counter__element">
+            Untradeable            
+            <div className="packs__item__counter__element__stepper">
+                {untradeable > 0 &&
+                <button type="button" className="packs__item__counter__element__stepper__decrease"
+                  onClick={() => {
+                    if(untradeable > 0){
+                        onCountUpdate(id, untradeable - 1, false);
                     }
-                }}
-            >- </span>
-    }
-            {tradeable}
-            <span className="modify-count"
-                onClick={() => {
-                    onCountUpdate(id, tradeable + 1, true);
-                }}
-            > +
-            </span>
-                
+                  }}
+                >-</button>
+                }
+                <span className="packs__item__counter__element__stepper__amount">{untradeable}</span>
+                <button type="button" className="packs__item__counter__element__stepper__increase"
+                  onClick={() => {
+                    onCountUpdate(id, untradeable + 1, false);
+                  }}
+                >+</button>
+            </div>
+          </div>
+          <div className="packs__item__counter__element">
+            Tradeable
+            <div className="packs__item__counter__element__stepper">
+              {tradeable > 0 &&
+              <button type="button" className="packs__item__counter__element__stepper__decrease"
+                  onClick={() => {
+                      if(tradeable > 0){
+                          onCountUpdate(id, tradeable - 1, true);
+                      }
+                  }}
+              >- </button>
+              }
+              <span className="packs__item__counter__element__stepper__amount">{tradeable}</span>
+              <button type="button" className="packs__item__counter__element__stepper__increase"
+                  onClick={() => {
+                      onCountUpdate(id, tradeable + 1, true);
+                  }}
+              > +
+              </button>                
+            </div>
           </div>
         </div>
-      </Card>
+      </div>
     );
   }
 }
