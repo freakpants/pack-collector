@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/pack-collector/static/css/main.53570e39.css",
-    "main.js": "/pack-collector/static/js/main.198a3f5f.js",
+    "main.css": "/pack-collector/static/css/main.ab3e2530.css",
+    "main.js": "/pack-collector/static/js/main.7b35a22f.js",
     "static/js/787.4d6d0d5c.chunk.js": "/pack-collector/static/js/787.4d6d0d5c.chunk.js",
     "static/media/MATROSKA.ttf.svg": "/pack-collector/static/media/MATROSKA.ttf.36d972b523b1d230880a.svg",
-    "static/media/bottom.png": "/pack-collector/static/media/bottom.b639689d8a578a0cf1d8.png",
-    "static/media/top.png": "/pack-collector/static/media/top.c719ea9055686914b441.png",
+    "static/media/bg.jpg": "/pack-collector/static/media/bg.f64be603d6bf1b7d73c3.jpg",
     "static/media/MATROSKA.ttf.eot": "/pack-collector/static/media/MATROSKA.ttf.1facc6e0a79a0ea22059.eot",
     "static/media/MATROSKA.ttf.woff": "/pack-collector/static/media/MATROSKA.ttf.c4d124f2a20b28b05975.woff",
     "static/media/UltimateTeamCondensed.woff": "/pack-collector/static/media/UltimateTeamCondensed.faca749167dc9d71ff77.woff",
     "static/media/UltimateTeam-Icons.woff": "/pack-collector/static/media/UltimateTeam-Icons.4ce90d80cd304b60c8f0.woff",
+    "static/media/logopc.png": "/pack-collector/static/media/logopc.9e67c57b72c060c96ab2.png",
     "static/media/rare.webp": "/pack-collector/static/media/rare.516cc7f3937d1f493470.webp",
     "static/media/gold.webp": "/pack-collector/static/media/gold.6cb6bb4dd2d137b79b1d.webp",
     "index.html": "/pack-collector/index.html",
-    "main.53570e39.css.map": "/pack-collector/static/css/main.53570e39.css.map",
-    "main.198a3f5f.js.map": "/pack-collector/static/js/main.198a3f5f.js.map",
+    "main.ab3e2530.css.map": "/pack-collector/static/css/main.ab3e2530.css.map",
+    "main.7b35a22f.js.map": "/pack-collector/static/js/main.7b35a22f.js.map",
     "787.4d6d0d5c.chunk.js.map": "/pack-collector/static/js/787.4d6d0d5c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.53570e39.css",
-    "static/js/main.198a3f5f.js"
+    "static/css/main.ab3e2530.css",
+    "static/js/main.7b35a22f.js"
   ]
 }
