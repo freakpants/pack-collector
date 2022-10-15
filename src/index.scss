@@ -64,6 +64,7 @@ h1 {
 .filter {
   display: flex;
   justify-content: center;
+
   & input {
     background-color: $light-gray;
     border: 1px solid $lighter-gray;
@@ -74,6 +75,11 @@ h1 {
     padding: 1rem;
     min-width: 25rem;
     font-weight: normal;
+
+    @media only screen and (max-width: 768px) {
+        width: 80%;
+        min-width: 0;
+    }
   }
 
   & fieldset {
@@ -90,12 +96,13 @@ h1 {
   flex-direction: row;
   width: 100%;
   justify-content: center;
+  flex-wrap: wrap;
 
   &__item {
     display: flex;
     flex-direction: column;
     justify-items: center;
-    margin: 0 1rem;
+    margin: 1rem;
 
     &__header {
       color: $beige;
@@ -250,7 +257,7 @@ h1 {
                 border: 0;
                 width: 1.3rem;
                 height: 1.3rem;
-                line-height: 1.2rem;
+                line-height: 1.3rem;
                 text-align: center;
 
                 &:hover {
@@ -265,7 +272,7 @@ h1 {
                 border: 0;
                 width: 1.3rem;
                 height: 1.3rem;
-                line-height: 1.2rem;
+                line-height: 1.3rem;
                 text-align: center;
 
                 &:hover {
