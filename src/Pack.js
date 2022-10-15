@@ -1,5 +1,3 @@
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
 import GoldPack from "./packs/gold.webp";
 import RarePack from "./packs/rare.webp";
 import { Component } from "react";
@@ -16,6 +14,8 @@ class Pack extends Component {
       case "rare":
         imageLink = RarePack;
         break;
+      default:
+          break;
     }
     return (
       <div className={"packs__item"}>
