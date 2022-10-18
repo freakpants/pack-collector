@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/pack-collector/static/css/main.5b2025b6.css",
-    "main.js": "/pack-collector/static/js/main.241a5a20.js",
+    "main.css": "/pack-collector/static/css/main.ac8eb84c.css",
+    "main.js": "/pack-collector/static/js/main.68d9663f.js",
     "static/js/787.4d6d0d5c.chunk.js": "/pack-collector/static/js/787.4d6d0d5c.chunk.js",
     "static/media/MATROSKA.ttf.svg": "/pack-collector/static/media/MATROSKA.ttf.36d972b523b1d230880a.svg",
     "static/media/bg.jpg": "/pack-collector/static/media/bg.f64be603d6bf1b7d73c3.jpg",
@@ -9,17 +9,18 @@
     "static/media/MATROSKA.ttf.woff": "/pack-collector/static/media/MATROSKA.ttf.c4d124f2a20b28b05975.woff",
     "static/media/prime.webp": "/pack-collector/static/media/prime.8c3bc0e332cc08190b81.webp",
     "static/media/UltimateTeamCondensed.woff": "/pack-collector/static/media/UltimateTeamCondensed.faca749167dc9d71ff77.woff",
+    "static/media/heroes.png": "/pack-collector/static/media/heroes.f07dcd54ff569d993587.png",
     "static/media/UltimateTeam-Icons.woff": "/pack-collector/static/media/UltimateTeam-Icons.4ce90d80cd304b60c8f0.woff",
     "static/media/logopc.png": "/pack-collector/static/media/logopc.9e67c57b72c060c96ab2.png",
     "static/media/rare.webp": "/pack-collector/static/media/rare.516cc7f3937d1f493470.webp",
     "static/media/gold.webp": "/pack-collector/static/media/gold.6cb6bb4dd2d137b79b1d.webp",
     "index.html": "/pack-collector/index.html",
-    "main.5b2025b6.css.map": "/pack-collector/static/css/main.5b2025b6.css.map",
-    "main.241a5a20.js.map": "/pack-collector/static/js/main.241a5a20.js.map",
+    "main.ac8eb84c.css.map": "/pack-collector/static/css/main.ac8eb84c.css.map",
+    "main.68d9663f.js.map": "/pack-collector/static/js/main.68d9663f.js.map",
     "787.4d6d0d5c.chunk.js.map": "/pack-collector/static/js/787.4d6d0d5c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5b2025b6.css",
-    "static/js/main.241a5a20.js"
+    "static/css/main.ac8eb84c.css",
+    "static/js/main.68d9663f.js"
   ]
 }
