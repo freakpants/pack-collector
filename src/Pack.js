@@ -26,20 +26,27 @@ class Pack extends Component {
         <div className="packs__item__title">
           <h2>{name}</h2>
         </div>
-        <img
-          alt={name}          
-          className={"packs__item__preview"}
-          src={imageLink}
-        />
+        <div class="packs__item__preview">
+          <img
+            alt={name}          
+            className={"packs__item__preview__img"}
+            src={imageLink}
+          />
+          <div className={"packs__item__preview__data"}>
+            <span className={"packs__item__pricing__coins"}>Min Discard: {discard}</span>
+            {guaranteed_rating > 0 && (
+              <span className={"packs__item__pricing__rating"}>Guaranteed Rating: {guaranteed_rating}</span>
+            )}
+          </div>
+          {description != "" && (
+          <div className={"packs__item__preview__description"}>
+            <span>{description}</span>
+          </div>
+          )}
+        </div>
         <div className="packs__item__pricing">
           <span className={"packs__item__pricing__coins"}>{coin_value}</span> | <span className={"packs__item__pricing__points"}>{fp}</span><br/>
-          
         </div>
-        <span className={"packs__item__pricing__coins"}>Min Discard: {discard}</span>
-        {guaranteed_rating > 0 && (
-          <span className={"packs__item__pricing__"}>Guaranteed Rating: {guaranteed_rating}</span>
-        )}
-        <span className={"packs__item__pricing__"}>{description}</span>
         <div className="packs__item__counter">
           <div className="packs__item__counter__element">
             Untradeable            
