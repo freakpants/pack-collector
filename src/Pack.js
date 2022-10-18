@@ -1,10 +1,11 @@
 import GoldPack from "./packs/gold.webp";
 import RarePack from "./packs/rare.webp";
+import PrimePack from "./packs/prime.webp";
 import { Component } from "react";
 class Pack extends Component {
   render() {
     let imageLink = "";
-    const { id, image, name, coin_value, fp, tradeable, untradeable } =
+    const { id, image, name, coin_value, fp, tradeable, untradeable, discard } =
       this.props.pack;
     const onCountUpdate = this.props.onCountUpdate;
     switch (image) {
@@ -13,6 +14,9 @@ class Pack extends Component {
         break;
       case "rare":
         imageLink = RarePack;
+        break;
+      case "prime":
+        imageLink = PrimePack;
         break;
       default:
           break;
@@ -28,8 +32,10 @@ class Pack extends Component {
           src={imageLink}
         />
         <div className="packs__item__pricing">
-          <span className={"packs__item__pricing__coins"}>{coin_value}</span> | <span className={"packs__item__pricing__points"}>{fp}</span>
+          <span className={"packs__item__pricing__coins"}>{coin_value}</span> | <span className={"packs__item__pricing__points"}>{fp}</span><br/>
+          
         </div>
+        <span className={"packs__item__pricing__coins"}>Min Discard: {discard}</span>
         <div className="packs__item__counter">
           <div className="packs__item__counter__element">
             Untradeable            

@@ -30,7 +30,6 @@ class App extends Component {
     const localPacks = localStorage.getItem("packs");
     // add untradeable and tradeable = 0 for every pack
     packs.forEach((pack) => {
-      console.log(localPacks);
       // look for the pack in localpacks
       if (localPacks) {
         const localPack = JSON.parse(localPacks).find(
@@ -69,7 +68,7 @@ class App extends Component {
       .get(process.env.REACT_APP_AJAXSERVER + "getPacks.php")
       .then((response) => {
         const packs = this.addDefaultCounts(response.data);
-
+        console.log(packs);
         this.setState({ packs: packs, allPacks: packs }, () => {
           this.updateTotals();
         });
