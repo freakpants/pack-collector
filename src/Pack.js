@@ -22,7 +22,7 @@ class Pack extends Component {
       case "heroes":
         imageLink = HeroesPack;
         break;
-        
+
       default:
           break;
     }
@@ -43,7 +43,7 @@ class Pack extends Component {
               <span className={"packs__item__pricing__rating"}>Guaranteed Rating: {guaranteed_rating}</span>
             )}
           </div>
-          {description != "" && (
+          {description !== "" && (
           <div className={"packs__item__preview__description"}>
             <span>{description}</span>
           </div>

@@ -4,6 +4,10 @@ import axios from "axios";
 import Pack from "./Pack";
 import Logo from "./assets/logopc.png";
 import { FormControlLabel, FormGroup, Checkbox } from "@mui/material";
+import GoldPack from "./packs/gold.webp";
+import RarePack from "./packs/rare.webp";
+import PrimePack from "./packs/prime.webp";
+import HeroesPack from "./packs/heroes.png";
 
 class App extends Component {
   constructor(props) {
@@ -54,10 +58,8 @@ class App extends Component {
     });
     return packs;
   }
-  
 
   componentDidMount() {
-
     // get the players from the json file
     let packs = require("./Packs.json");
     packs = this.addDefaultCounts(packs);
@@ -90,6 +92,28 @@ class App extends Component {
 
   handleSpreadMode(e) {
     this.setState({ spreadSheetMode: e.target.checked });
+  }
+
+  getPackIcon(pack) {
+    let imageLink = "";
+    switch (pack.image) {
+      case "gold":
+        imageLink = GoldPack;
+        break;
+      case "rare":
+        imageLink = RarePack;
+        break;
+      case "prime":
+        imageLink = PrimePack;
+        break;
+      case "heroes":
+        imageLink = HeroesPack;
+        break;
+
+      default:
+        break;
+    }
+    return imageLink;
   }
 
   countUpdate = (packId, count, tradeable) => {
@@ -140,7 +164,7 @@ class App extends Component {
     // calculate total discard
     let totalDiscard = 0;
     this.state.packs.forEach((pack) => {
-      totalDiscard += (pack.tradeable) * pack.discard;
+      totalDiscard += pack.tradeable * pack.discard;
     });
 
     this.setState({ totalDiscard: totalDiscard });
@@ -259,8 +283,9 @@ class App extends Component {
               <thead>
                 <tr>
                   <th>Pack</th>
-                  <th>Tradeable</th>
                   <th>Untradeable</th>
+                  <th>Tradeable</th>
+
                   <th>Total</th>
                   <th>Coins</th>
                   <th>Discard</th>
@@ -272,17 +297,90 @@ class App extends Component {
               <tbody>
                 {this.state.packs.map((pack) => (
                   <tr>
-                    <td>{pack.name}</td>
-                    <td>{pack.tradeable}</td>
-                    <td>{pack.untradeable}</td>
+                    <td className={"nameCell"}>
+                      <div><img alt="smallPacks" className={"smallPacks"} src={this.getPackIcon(pack)} /></div>
+                      <div className={"packName"} >{pack.name}</div>
+                    </td>
+                    <td>
+                      {" "}
+                      <div className="packs__item__counter__element__stepper">
+                        {pack.untradeable > 0 && (
+                          <button
+                            type="button"
+                            className="packs__item__counter__element__stepper__decrease"
+                            onClick={() => {
+                              if (pack.untradeable > 0) {
+                                this.countUpdate(
+                                  pack.id,
+                                  pack.untradeable - 1,
+                                  false
+                                );
+                              }
+                            }}
+                          >
+                            -
+                          </button>
+                        )}
+                        <span className="packs__item__counter__element__stepper__amount">
+                          {pack.untradeable}
+                        </span>
+                        <button
+                          type="button"
+                          className="packs__item__counter__element__stepper__increase"
+                          onClick={() => {
+                            this.countUpdate(
+                              pack.id,
+                              pack.untradeable + 1,
+                              false
+                            );
+                          }}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="packs__item__counter__element__stepper">
+                        {pack.tradeable > 0 && (
+                          <button
+                            type="button"
+                            className="packs__item__counter__element__stepper__decrease"
+                            onClick={() => {
+                              if (pack.tradeable > 0) {
+                                this.countUpdate(
+                                  pack.id,
+                                  pack.tradeable - 1,
+                                  true
+                                );
+                              }
+                            }}
+                          >
+                            -
+                          </button>
+                        )}
+                        <span className="packs__item__counter__element__stepper__amount">
+                          {pack.tradeable}
+                        </span>
+                        <button
+                          type="button"
+                          className="packs__item__counter__element__stepper__increase"
+                          onClick={() => {
+                            this.countUpdate(pack.id, pack.tradeable + 1, true);
+                          }}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </td>
+
                     <td>{pack.tradeable + pack.untradeable}</td>
                     <td>
                       {pack.coin_value * (pack.tradeable + pack.untradeable)}
                     </td>
-                    <td>{pack.discard * (pack.tradeable)}</td>
-                    <td>{
-                    pack.guaranteed_rating > 0 && (
-                      pack.guaranteed_rating)}</td>
+                    <td>{pack.discard * pack.tradeable}</td>
+                    <td>
+                      {pack.guaranteed_rating > 0 && pack.guaranteed_rating}
+                    </td>
                     <td>{pack.fp * (pack.tradeable + pack.untradeable)}</td>
                     <td>
                       {Math.floor(

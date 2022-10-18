@@ -534,3 +534,18 @@ h1 {
   font-weight: 100;
   color: $beige;
 }
+
+.smallPacks{
+  width: 20px;
+  margin-right: 10px;
+}
+
+.packName{
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.nameCell{
+  display: flex;
+}
