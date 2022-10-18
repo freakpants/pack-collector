@@ -19,6 +19,8 @@ class App extends Component {
       totalFP: 0,
       totalCash: 0,
       spreadSheetMode: false,
+      discard: 0,
+      totalDiscard: 0,
     };
     this.handleChange = this.handleChange.bind(this);
     this.updateTotals = this.updateTotals.bind(this);
@@ -135,6 +137,14 @@ class App extends Component {
 
     this.setState({ totalCoins: totalCoins });
 
+    // calculate total discard
+    let totalDiscard = 0;
+    this.state.packs.forEach((pack) => {
+      totalDiscard += (pack.tradeable + pack.untradeable) * pack.discard;
+    });
+
+    this.setState({ totalDiscard: totalDiscard });
+
     // calculate total fp
     let totalFP = 0;
     this.state.packs.forEach((pack) => {
@@ -187,6 +197,12 @@ class App extends Component {
             <span className={"statistics__item__header"}>Total Coins</span>
             <span className={"statistics__item__value statistics__item__coins"}>
               {this.state.totalCoins}
+            </span>
+          </div>
+          <div className={"statistics__item"}>
+            <span className={"statistics__item__header"}>Minimum Discard</span>
+            <span className={"statistics__item__value statistics__item__coins"}>
+              {this.state.totalDiscard}
             </span>
           </div>
           <div className={"statistics__item"}>
