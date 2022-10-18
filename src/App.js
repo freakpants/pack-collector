@@ -140,7 +140,7 @@ class App extends Component {
     // calculate total discard
     let totalDiscard = 0;
     this.state.packs.forEach((pack) => {
-      totalDiscard += (pack.tradeable + pack.untradeable) * pack.discard;
+      totalDiscard += (pack.tradeable) * pack.discard;
     });
 
     this.setState({ totalDiscard: totalDiscard });
@@ -263,6 +263,7 @@ class App extends Component {
                   <th>Untradeable</th>
                   <th>Total</th>
                   <th>Coins</th>
+                  <th>Discard</th>
                   <th>FP</th>
                   <th>Cash</th>
                 </tr>
@@ -277,6 +278,7 @@ class App extends Component {
                     <td>
                       {pack.coin_value * (pack.tradeable + pack.untradeable)}
                     </td>
+                    <td>{pack.discard * (pack.tradeable)}</td>
                     <td>{pack.fp * (pack.tradeable + pack.untradeable)}</td>
                     <td>
                       {Math.floor(
@@ -292,6 +294,7 @@ class App extends Component {
                   <td>{this.state.untradeablePacks}</td>
                   <td>{this.state.totalPacks}</td>
                   <td>{this.state.totalCoins}</td>
+                  <td>{this.state.totalDiscard}</td>
                   <td>{this.state.totalFP}</td>
                   <td>{this.state.totalCash}</td>
                 </tr>
