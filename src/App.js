@@ -264,6 +264,7 @@ class App extends Component {
                   <th>Total</th>
                   <th>Coins</th>
                   <th>Discard</th>
+                  <th>Min</th>
                   <th>FP</th>
                   <th>Cash</th>
                 </tr>
@@ -279,6 +280,9 @@ class App extends Component {
                       {pack.coin_value * (pack.tradeable + pack.untradeable)}
                     </td>
                     <td>{pack.discard * (pack.tradeable)}</td>
+                    <td>{
+                    pack.guaranteed_rating > 0 && (
+                      pack.guaranteed_rating)}</td>
                     <td>{pack.fp * (pack.tradeable + pack.untradeable)}</td>
                     <td>
                       {Math.floor(
@@ -295,6 +299,7 @@ class App extends Component {
                   <td>{this.state.totalPacks}</td>
                   <td>{this.state.totalCoins}</td>
                   <td>{this.state.totalDiscard}</td>
+                  <td>N/A</td>
                   <td>{this.state.totalFP}</td>
                   <td>{this.state.totalCash}</td>
                 </tr>
