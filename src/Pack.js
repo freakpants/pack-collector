@@ -5,7 +5,7 @@ import { Component } from "react";
 class Pack extends Component {
   render() {
     let imageLink = "";
-    const { id, image, name, coin_value, fp, tradeable, untradeable, discard } =
+    const { id, image, name, coin_value, fp, tradeable, untradeable, discard, guaranteed_rating, description } =
       this.props.pack;
     const onCountUpdate = this.props.onCountUpdate;
     switch (image) {
@@ -36,6 +36,10 @@ class Pack extends Component {
           
         </div>
         <span className={"packs__item__pricing__coins"}>Min Discard: {discard}</span>
+        {guaranteed_rating > 0 && (
+          <span className={"packs__item__pricing__"}>Guaranteed Rating: {guaranteed_rating}</span>
+        )}
+        <span className={"packs__item__pricing__"}>{description}</span>
         <div className="packs__item__counter">
           <div className="packs__item__counter__element">
             Untradeable            
