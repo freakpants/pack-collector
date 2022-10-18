@@ -1,6 +1,7 @@
 import GoldPack from "./packs/gold.webp";
 import RarePack from "./packs/rare.webp";
 import PrimePack from "./packs/prime.webp";
+import HeroesPack from "./packs/heroes.png";
 import { Component } from "react";
 class Pack extends Component {
   render() {
@@ -18,6 +19,10 @@ class Pack extends Component {
       case "prime":
         imageLink = PrimePack;
         break;
+      case "heroes":
+        imageLink = HeroesPack;
+        break;
+        
       default:
           break;
     }
