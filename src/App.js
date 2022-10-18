@@ -23,38 +23,54 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.updateTotals = this.updateTotals.bind(this);
     this.handleSpreadMode = this.handleSpreadMode.bind(this);
+    this.addDefaultCounts = this.addDefaultCounts.bind(this);
   }
 
-  componentDidMount() {
+  addDefaultCounts(packs) {
     const localPacks = localStorage.getItem("packs");
+    // add untradeable and tradeable = 0 for every pack
+    packs.forEach((pack) => {
+      console.log(localPacks);
+      // look for the pack in localpacks
+      if (localPacks) {
+        const localPack = JSON.parse(localPacks).find(
+          (localPack) => localPack.id === pack.id
+        );
+        if (localPack && localPack.untradeable !== null) {
+          pack.untradeable = localPack.untradeable;
+        } else {
+          pack.untradeable = 0;
+        }
+        if (localPack && localPack.tradeable !== null) {
+          pack.tradeable = localPack.tradeable;
+        } else {
+          pack.tradeable = 0;
+        }
+      } else {
+        pack.untradeable = 0;
+        pack.tradeable = 0;
+      }
+    });
+    return packs;
+  }
+  
+
+  componentDidMount() {
+
+    // get the players from the json file
+    let packs = require("./Packs.json");
+    packs = this.addDefaultCounts(packs);
+
+    this.setState({ packs: packs, allPacks: packs }, () => {
+      this.updateTotals();
+    });
     // get packs
     axios
       .get(process.env.REACT_APP_AJAXSERVER + "getPacks.php")
       .then((response) => {
-        // add untradeable and tradeable = 0 for every pack
-        response.data.forEach((pack) => {
-          // look for the pack in localpacks
-          if (localPacks) {
-            const localPack = JSON.parse(localPacks).find(
-              (localPack) => localPack.id === pack.id
-            );
-            if (localPack && localPack.untradeable !== null) {
-              pack.untradeable = localPack.untradeable;
-            } else {
-              pack.untradeable = 0;
-            }
-            if (localPack && localPack.tradeable !== null) {
-              pack.tradeable = localPack.tradeable;
-            } else {
-              pack.tradeable = 0;
-            }
-          } else {
-            pack.untradeable = 0;
-            pack.tradeable = 0;
-          }
-        });
+        const packs = this.addDefaultCounts(response.data);
 
-        this.setState({ packs: response.data, allPacks: response.data }, () => {
+        this.setState({ packs: packs, allPacks: packs }, () => {
           this.updateTotals();
         });
       });
@@ -192,73 +208,83 @@ class App extends Component {
           </div>
         </div>
         <div className="filter">
-
           <FormGroup>
-          <input
-            value={this.state.packSearch}
-            id="outlined-basic"
-            label="filter by name"
-            variant="outlined"
-            placeholder="Search for a specific pack..."
-            onChange={this.handleChange}
-            onBlur={() => this.props.actions.updateInput(this.state.inputValue)}
-          />
+            <input
+              value={this.state.packSearch}
+              id="outlined-basic"
+              label="filter by name"
+              variant="outlined"
+              placeholder="Search for a specific pack..."
+              onChange={this.handleChange}
+              onBlur={() =>
+                this.props.actions.updateInput(this.state.inputValue)
+              }
+            />
             <FormControlLabel
               control={<Checkbox onChange={this.handleSpreadMode} />}
               label="Spreadsheet Mode"
             />
           </FormGroup>
         </div>
-        { ! this.state.spreadSheetMode  && (
-        <div className={"packs"}>
-          {this.state.packs.map((pack) => (
-            <Pack key={pack.id} onCountUpdate={this.countUpdate} pack={pack} />            
-          ))}
-        </div>
+        {!this.state.spreadSheetMode && (
+          <div className={"packs"}>
+            {this.state.packs.map((pack) => (
+              <Pack
+                key={pack.id}
+                onCountUpdate={this.countUpdate}
+                pack={pack}
+              />
+            ))}
+          </div>
         )}
 
-        { this.state.spreadSheetMode  && (
-        <div className={"spreadsheet"}>
-          <table className={"packs-table"}>
-            <thead>
-              <tr>
-                <th>Pack</th>
-                <th>Tradeable</th>
-                <th>Untradeable</th>
-                <th>Total</th>
-                <th>Coins</th>
-                <th>FP</th>
-                <th>Cash</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.packs.map((pack) => (    
+        {this.state.spreadSheetMode && (
+          <div className={"spreadsheet"}>
+            <table className={"packs-table"}>
+              <thead>
                 <tr>
-                  <td>{pack.name}</td>
-                  <td>{pack.tradeable}</td>
-                  <td>{pack.untradeable}</td>
-                  <td>{pack.tradeable + pack.untradeable}</td>
-                  <td>{pack.coin_value * (pack.tradeable + pack.untradeable)}</td>
-                  <td>{pack.fp * (pack.tradeable + pack.untradeable)}</td>
-                  <td>{Math.floor((pack.fp * (pack.tradeable + pack.untradeable)) * 8999 / 12000) / 100}</td>
-
+                  <th>Pack</th>
+                  <th>Tradeable</th>
+                  <th>Untradeable</th>
+                  <th>Total</th>
+                  <th>Coins</th>
+                  <th>FP</th>
+                  <th>Cash</th>
                 </tr>
-              ))}
-              <tr>
-                <td>Total</td>
-                <td>{this.state.tradeablePacks}</td>
-                <td>{this.state.untradeablePacks}</td>
-                <td>{this.state.totalPacks}</td>
-                <td>{this.state.totalCoins}</td>
-                <td>{this.state.totalFP}</td>
-                <td>{this.state.totalCash}</td>
-
-              </tr>
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {this.state.packs.map((pack) => (
+                  <tr>
+                    <td>{pack.name}</td>
+                    <td>{pack.tradeable}</td>
+                    <td>{pack.untradeable}</td>
+                    <td>{pack.tradeable + pack.untradeable}</td>
+                    <td>
+                      {pack.coin_value * (pack.tradeable + pack.untradeable)}
+                    </td>
+                    <td>{pack.fp * (pack.tradeable + pack.untradeable)}</td>
+                    <td>
+                      {Math.floor(
+                        (pack.fp * (pack.tradeable + pack.untradeable) * 8999) /
+                          12000
+                      ) / 100}
+                    </td>
+                  </tr>
+                ))}
+                <tr>
+                  <td>Total</td>
+                  <td>{this.state.tradeablePacks}</td>
+                  <td>{this.state.untradeablePacks}</td>
+                  <td>{this.state.totalPacks}</td>
+                  <td>{this.state.totalCoins}</td>
+                  <td>{this.state.totalFP}</td>
+                  <td>{this.state.totalCash}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         )}
-        </ThemeProvider>
+      </ThemeProvider>
     );
   }
 }
