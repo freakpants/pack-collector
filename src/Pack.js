@@ -31,7 +31,7 @@ class Pack extends Component {
         <div className="packs__item__title">
           <h2>{name}</h2>
         </div>
-        <div class="packs__item__preview">
+        <div className={"packs__item__preview"}>
           <img
             alt={name}          
             className={"packs__item__preview__img"}

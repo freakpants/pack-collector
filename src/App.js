@@ -1,3 +1,7 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
 import React, { Component } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
@@ -30,6 +34,21 @@ class App extends Component {
     this.updateTotals = this.updateTotals.bind(this);
     this.handleSpreadMode = this.handleSpreadMode.bind(this);
     this.addDefaultCounts = this.addDefaultCounts.bind(this);
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyBZjAp5aWnUV9y_AbI0UeN8fMSco9L7U3U",
+      authDomain: "pack-collector.firebaseapp.com",
+      projectId: "pack-collector",
+      storageBucket: "pack-collector.appspot.com",
+      messagingSenderId: "935679710199",
+      appId: "1:935679710199:web:906c3ac232f7d9fecf54f2",
+      measurementId: "G-60T2BG3K5X",
+    };
+
+    const fireApp = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(fireApp);
   }
 
   addDefaultCounts(packs) {
@@ -298,8 +317,14 @@ class App extends Component {
                 {this.state.packs.map((pack) => (
                   <tr>
                     <td className={"nameCell"}>
-                      <div><img alt="smallPacks" className={"smallPacks"} src={this.getPackIcon(pack)} /></div>
-                      <div className={"packName"} >{pack.name}</div>
+                      <div>
+                        <img
+                          alt="smallPacks"
+                          className={"smallPacks"}
+                          src={this.getPackIcon(pack)}
+                        />
+                      </div>
+                      <div className={"packName"}>{pack.name}</div>
                     </td>
                     <td>
                       {" "}
