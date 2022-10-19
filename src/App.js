@@ -6,6 +6,7 @@ import {
   getAuth,
   signInWithRedirect,
   getRedirectResult,
+  onAuthStateChanged
 } from "firebase/auth";
 
 import React, { Component } from "react";
@@ -64,6 +65,22 @@ class App extends Component {
 
     // this.provider = new TwitterAuthProvider();
     this.auth = getAuth();
+
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+      // write user object to local storage
+      localStorage.setItem("user", JSON.stringify(user));
+
+      this.setState({ user: user });
+      } else {
+        // User is signed out
+        localStorage.setItem("user", JSON.stringify(user));
+
+        this.setState({ user: false });
+      }
+    });
 
     /* getRedirectResult(this.auth)
       .then((result) => {
@@ -131,6 +148,9 @@ class App extends Component {
 
       // The signed-in user info.
       const user = result.user;
+
+      // write user object to local storage
+      localStorage.setItem("user", JSON.stringify(user));
 
       this.setState({ user: user });
     })
