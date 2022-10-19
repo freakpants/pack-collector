@@ -1,6 +1,12 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithRedirect,
+  getRedirectResult,
+} from "firebase/auth";
 
 import React, { Component } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -29,11 +35,14 @@ class App extends Component {
       spreadSheetMode: false,
       discard: 0,
       totalDiscard: 0,
+      user: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.updateTotals = this.updateTotals.bind(this);
     this.handleSpreadMode = this.handleSpreadMode.bind(this);
     this.addDefaultCounts = this.addDefaultCounts.bind(this);
+    this.triggerTwitterLogin = this.triggerTwitterLogin.bind(this);
+    this.triggerGoogleLogin = this.triggerGoogleLogin.bind(this);
 
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -49,6 +58,39 @@ class App extends Component {
 
     const fireApp = initializeApp(firebaseConfig);
     const analytics = getAnalytics(fireApp);
+    this.analytics = analytics;
+
+    this.GoogleAuthProvider = new GoogleAuthProvider();
+
+    // this.provider = new TwitterAuthProvider();
+    this.auth = getAuth();
+
+    /* getRedirectResult(this.auth)
+      .then((result) => {
+        // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
+        // You can use these server side with your app's credentials to access the Twitter API.
+        const credential = TwitterAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const secret = credential.secret;
+        // ...
+
+        // The signed-in user info.
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = TwitterAuthProvider.credentialFromError(error);
+        // ...
+      }); */
+
+
   }
 
   addDefaultCounts(packs) {
@@ -79,6 +121,27 @@ class App extends Component {
   }
 
   componentDidMount() {
+
+    // get the redirected user
+    getRedirectResult(this.auth)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access Google APIs.
+      // const credential = GoogleAuthProvider.credentialFromResult(result);
+      // const token = credential.accessToken;
+
+      // The signed-in user info.
+      const user = result.user;
+
+      this.setState({ user: user });
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      // const errorCode = error.code;
+      const errorMessage = error.message;
+      
+      console.log(errorMessage);
+    });
+
     // get the players from the json file
     let packs = require("./Packs.json");
     packs = this.addDefaultCounts(packs);
@@ -203,6 +266,14 @@ class App extends Component {
     this.setState({ totalCash: Math.floor(totalFP * fpToEuro) / 100 });
   }
 
+  triggerTwitterLogin() {
+    signInWithRedirect(this.auth, this.provider);
+  }
+
+  triggerGoogleLogin() {
+    signInWithRedirect(this.auth, this.GoogleAuthProvider);
+  }
+
   render() {
     const theme = createTheme({
       typography: {
@@ -212,8 +283,28 @@ class App extends Component {
       },
     });
 
+    /*
+            <img
+          onClick={this.triggerTwitterLogin}
+          src={
+            "https://cdn.cms-twdigitalassets.com/content/dam/developer-twitter/auth-docs/sign-in-with-twitter-gray.png.twimg.1920.png"
+          }
+        />
+        */
+
     return (
       <ThemeProvider theme={theme}>
+        {! this.state.user && (
+        <img alt="Google Login"
+          onClick={this.triggerGoogleLogin}
+          src={
+            "https://developers.google.com/static/identity/images/btn_google_signin_dark_normal_web.png"
+          }
+        /> )}
+        {this.state.user && (
+          <div className={"displayName"}>Logged in as {this.state.user.displayName}</div>
+        )}
+
         <div className={"logo"}>
           <img className={"logo__img"} src={Logo} alt="FUT23 Pack Collector" />
         </div>
