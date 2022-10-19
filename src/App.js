@@ -6,15 +6,16 @@ import {
   getAuth,
   signInWithRedirect,
   getRedirectResult,
-  onAuthStateChanged
+  onAuthStateChanged,
 } from "firebase/auth";
+import { getDatabase, set, ref, onValue } from "firebase/database";
 
 import React, { Component } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import Pack from "./Pack";
 import Logo from "./assets/logopc.png";
-import { FormControlLabel, FormGroup, Checkbox } from "@mui/material";
+import { FormControlLabel, FormGroup, Checkbox, Button } from "@mui/material";
 import GoldPack from "./packs/gold.webp";
 import RarePack from "./packs/rare.webp";
 import PrimePack from "./packs/prime.webp";
@@ -44,6 +45,8 @@ class App extends Component {
     this.addDefaultCounts = this.addDefaultCounts.bind(this);
     this.triggerTwitterLogin = this.triggerTwitterLogin.bind(this);
     this.triggerGoogleLogin = this.triggerGoogleLogin.bind(this);
+    this.savePacks = this.savePacks.bind(this);
+    this.loadPacks = this.loadPacks.bind(this);
 
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -55,11 +58,14 @@ class App extends Component {
       messagingSenderId: "935679710199",
       appId: "1:935679710199:web:906c3ac232f7d9fecf54f2",
       measurementId: "G-60T2BG3K5X",
+      databaseURL: "https://pack-collector-default-rtdb.europe-west1.firebasedatabase.app/",
     };
 
     const fireApp = initializeApp(firebaseConfig);
     const analytics = getAnalytics(fireApp);
     this.analytics = analytics;
+
+    this.database = getDatabase(fireApp);
 
     this.GoogleAuthProvider = new GoogleAuthProvider();
 
@@ -70,10 +76,10 @@ class App extends Component {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-      // write user object to local storage
-      localStorage.setItem("user", JSON.stringify(user));
+        // write user object to local storage
+        localStorage.setItem("user", JSON.stringify(user));
 
-      this.setState({ user: user });
+        this.setState({ user: user });
       } else {
         // User is signed out
         localStorage.setItem("user", JSON.stringify(user));
@@ -106,8 +112,6 @@ class App extends Component {
         const credential = TwitterAuthProvider.credentialFromError(error);
         // ...
       }); */
-
-
   }
 
   addDefaultCounts(packs) {
@@ -138,29 +142,28 @@ class App extends Component {
   }
 
   componentDidMount() {
-
     // get the redirected user
     getRedirectResult(this.auth)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access Google APIs.
-      // const credential = GoogleAuthProvider.credentialFromResult(result);
-      // const token = credential.accessToken;
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access Google APIs.
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
 
-      // The signed-in user info.
-      const user = result.user;
+        // The signed-in user info.
+        const user = result.user;
 
-      // write user object to local storage
-      localStorage.setItem("user", JSON.stringify(user));
+        // write user object to local storage
+        localStorage.setItem("user", JSON.stringify(user));
 
-      this.setState({ user: user });
-    })
-    .catch((error) => {
-      // Handle Errors here.
-      // const errorCode = error.code;
-      const errorMessage = error.message;
-      
-      console.log(errorMessage);
-    });
+        this.setState({ user: user });
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        // const errorCode = error.code;
+        const errorMessage = error.message;
+
+        console.log(errorMessage);
+      });
 
     // get the players from the json file
     let packs = require("./Packs.json");
@@ -294,6 +297,29 @@ class App extends Component {
     signInWithRedirect(this.auth, this.GoogleAuthProvider);
   }
 
+  savePacks(){
+    // save the packs to the database
+    /* axios.post(process.env.REACT_APP_AJAXSERVER + "savePacks.php", {packs: this.state.packs, user: this.state.user } )
+    .then(response => {
+      console.log(response);
+    }) */
+    set(ref(this.database, 'packs/' + this.state.user.uid), this.state.packs);
+  }
+
+  loadPacks(){
+    // load the packs from the database
+    const packsRef = ref(this.database, 'packs/' + this.state.user.uid);
+    onValue(packsRef, (snapshot) => {
+      const data = snapshot.val();
+
+      this.setState({ packs: data, allPacks: data }, () => {
+        this.updateTotals();
+      });
+      // save packs to local storage too
+      localStorage.setItem("packs", JSON.stringify(data));
+    });
+  }
+
   render() {
     const theme = createTheme({
       typography: {
@@ -314,15 +340,23 @@ class App extends Component {
 
     return (
       <ThemeProvider theme={theme}>
-        {! this.state.user && (
-        <img alt="Google Login"
-          onClick={this.triggerGoogleLogin}
-          src={
-            "https://developers.google.com/static/identity/images/btn_google_signin_dark_normal_web.png"
-          }
-        /> )}
+        {!this.state.user && (
+          <img
+            alt="Google Login"
+            onClick={this.triggerGoogleLogin}
+            src={
+              "https://developers.google.com/static/identity/images/btn_google_signin_dark_normal_web.png"
+            }
+          />
+        )}
         {this.state.user && (
-          <div className={"displayName"}>Logged in as {this.state.user.displayName}</div>
+          <div className={"cloud-area"}>
+            <div className={"displayName"}>
+              Logged in as {this.state.user.displayName}
+            </div>
+            <div><Button onClick={this.savePacks} variant="contained">Save Packs</Button>
+            <Button onClick={this.loadPacks} variant="contained">Load Packs</Button></div>
+          </div>
         )}
 
         <div className={"logo"}>
