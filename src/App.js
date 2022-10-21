@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import Pack from "./Pack";
 import Logo from "./assets/logopc.png";
+import Twitter from "./assets/twitter.svg";
 import { FormControlLabel, FormGroup, Checkbox, Button } from "@mui/material";
 import GoldPack from "./packs/gold.webp";
 import RarePack from "./packs/rare.webp";
@@ -337,6 +338,10 @@ class App extends Component {
 
         <div className={"logo"}>
           <img className={"logo__img"} src={Logo} alt="FUT23 Pack Collector" />
+          <div className={"logo__twitter"}>
+            <a href="https://twitter.com/FUTCoder" target="_blank"><img src={Twitter} /> FUT Coder</a> x{" "}
+            <a href="https://twitter.com/Kimpembro" target="_blank"><img src={Twitter} /> Kimpembro</a> x{" "}
+            <a href="https://twitter.com/Fleck_GFX" target="_blank"><img src={Twitter} /> Fleck</a></div>
         </div>
         <div className={"statistics"}>
           <div className={"statistics__item"}>
