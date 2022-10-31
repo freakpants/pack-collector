@@ -21,6 +21,7 @@ import GoldPack from "./packs/gold.webp";
 import RarePack from "./packs/rare.webp";
 import PrimePack from "./packs/prime.webp";
 import HeroesPack from "./packs/heroes.png";
+import ChampsPack from "./packs/champs.webp";
 
 class App extends Component {
   constructor(props) {
@@ -191,7 +192,9 @@ class App extends Component {
       case "heroes":
         imageLink = HeroesPack;
         break;
-
+      case "champs":
+        imageLink = ChampsPack;
+        break;
       default:
         break;
     }
