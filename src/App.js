@@ -179,6 +179,7 @@ class App extends Component {
 
   getPackIcon(pack) {
     let imageLink = "";
+    
     switch (pack.image) {
       case "gold":
         imageLink = GoldPack;
