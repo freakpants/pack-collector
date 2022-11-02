@@ -16,6 +16,7 @@ import axios from "axios";
 import Pack from "./Pack";
 import Logo from "./assets/logopc.png";
 import Twitter from "./assets/twitter.svg";
+import GoogleLoginButton from './assets/btn_google_signin_dark_normal_web.png';
 import { FormControlLabel, FormGroup, Checkbox, Button } from "@mui/material";
 import GoldPack from "./packs/gold.webp";
 import RarePack from "./packs/rare.webp";
@@ -47,6 +48,7 @@ class App extends Component {
     this.addDefaultCounts = this.addDefaultCounts.bind(this);
     this.triggerTwitterLogin = this.triggerTwitterLogin.bind(this);
     this.triggerGoogleLogin = this.triggerGoogleLogin.bind(this);
+    this.triggerGoogleLogout = this.triggerGoogleLogout.bind(this);
     this.savePacks = this.savePacks.bind(this);
     this.loadPacks = this.loadPacks.bind(this);
 
@@ -60,7 +62,8 @@ class App extends Component {
       messagingSenderId: "935679710199",
       appId: "1:935679710199:web:906c3ac232f7d9fecf54f2",
       measurementId: "G-60T2BG3K5X",
-      databaseURL: "https://pack-collector-default-rtdb.europe-west1.firebasedatabase.app/",
+      databaseURL:
+        "https://pack-collector-default-rtdb.europe-west1.firebasedatabase.app/",
     };
 
     const fireApp = initializeApp(firebaseConfig);
@@ -89,7 +92,6 @@ class App extends Component {
         this.setState({ user: false });
       }
     });
-
   }
 
   addDefaultCounts(packs) {
@@ -179,7 +181,7 @@ class App extends Component {
 
   getPackIcon(pack) {
     let imageLink = "";
-    
+
     switch (pack.image) {
       case "gold":
         imageLink = GoldPack;
@@ -278,18 +280,22 @@ class App extends Component {
     signInWithRedirect(this.auth, this.GoogleAuthProvider);
   }
 
-  savePacks(){
+  triggerGoogleLogout() {
+    this.auth.signOut();
+  }
+
+  savePacks() {
     // save the packs to the database
     /* axios.post(process.env.REACT_APP_AJAXSERVER + "savePacks.php", {packs: this.state.packs, user: this.state.user } )
     .then(response => {
       console.log(response);
     }) */
-    set(ref(this.database, 'packs/' + this.state.user.uid), this.state.packs);
+    set(ref(this.database, "packs/" + this.state.user.uid), this.state.packs);
   }
 
-  loadPacks(){
+  loadPacks() {
     // load the packs from the database
-    const packsRef = ref(this.database, 'packs/' + this.state.user.uid);
+    const packsRef = ref(this.database, "packs/" + this.state.user.uid);
     onValue(packsRef, (snapshot) => {
       const data = snapshot.val();
 
@@ -325,9 +331,7 @@ class App extends Component {
           <img
             alt="Google Login"
             onClick={this.triggerGoogleLogin}
-            src={
-              "https://developers.google.com/static/identity/images/btn_google_signin_dark_normal_web.png"
-            }
+            src={GoogleLoginButton}
           />
         )}
         {this.state.user && (
@@ -335,17 +339,47 @@ class App extends Component {
             <div className={"displayName"}>
               Logged in as {this.state.user.displayName}
             </div>
-            <div><Button onClick={this.savePacks} variant="contained">Save Packs</Button>
-            <Button onClick={this.loadPacks} variant="contained">Load Packs</Button></div>
+            <div>
+              <Button onClick={this.triggerGoogleLogout} variant="contained">
+                Logout
+              </Button>
+              <Button onClick={this.savePacks} variant="contained">
+                Save Packs
+              </Button>
+              <Button onClick={this.loadPacks} variant="contained">
+                Load Packs
+              </Button>
+            </div>
           </div>
         )}
 
         <div className={"logo"}>
           <img className={"logo__img"} src={Logo} alt="FUT23 Pack Collector" />
           <div className={"logo__twitter"}>
-            <a href="https://twitter.com/FUTCoder" rel="noreferrer" target="_blank"><img alt="Twitter Logo" src={Twitter} /> FUT Coder</a> x{" "}
-            <a href="https://twitter.com/Kimpembro" rel="noreferrer" target="_blank"><img alt="Twitter Logo" src={Twitter} /> Kimpembro</a> x{" "}
-            <a href="https://twitter.com/Fleck_GFX" rel="noreferrer" target="_blank"><img alt="Twitter Logo" src={Twitter} /> Fleck</a></div>
+            <a
+              href="https://twitter.com/FUTCoder"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <img alt="Twitter Logo" src={Twitter} /> FUT Coder
+            </a>{" "}
+            x{" "}
+            <a
+              href="https://twitter.com/Kimpembro"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <img alt="Twitter Logo" src={Twitter} /> Kimpembro
+            </a>{" "}
+            x{" "}
+            <a
+              href="https://twitter.com/Fleck_GFX"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <img alt="Twitter Logo" src={Twitter} /> Fleck
+            </a>
+          </div>
         </div>
         <div className={"statistics"}>
           <div className={"statistics__item"}>
