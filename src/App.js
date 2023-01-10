@@ -255,6 +255,8 @@ class App extends Component {
     this.state.packs.forEach((pack) => {
       totalCoins += (pack.tradeable + pack.untradeable) * pack.coin_value;
     });
+    
+    totalCoins = totalCoins.toLocaleString("de-CH");
 
     this.setState({ totalCoins: totalCoins });
 
@@ -264,6 +266,8 @@ class App extends Component {
       totalDiscard += pack.tradeable * pack.discard;
     });
 
+    totalDiscard = totalDiscard.toLocaleString("de-CH");
+
     this.setState({ totalDiscard: totalDiscard });
 
     // calculate total fp
@@ -271,6 +275,8 @@ class App extends Component {
     this.state.packs.forEach((pack) => {
       totalFP += (pack.tradeable + pack.untradeable) * pack.fp;
     });
+
+    totalFP = totalFP.toLocaleString("de-CH");
 
     this.setState({ totalFP: totalFP });
 
