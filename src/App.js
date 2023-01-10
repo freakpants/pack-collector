@@ -16,7 +16,7 @@ import axios from "axios";
 import Pack from "./Pack";
 import Logo from "./assets/logopc.png";
 import Twitter from "./assets/twitter.svg";
-import GoogleLoginButton from './assets/btn_google_signin_dark_normal_web.png';
+import GoogleLoginButton from "./assets/btn_google_signin_dark_normal_web.png";
 import { FormControlLabel, FormGroup, Checkbox, Button } from "@mui/material";
 import GoldPack from "./packs/gold.webp";
 import RarePack from "./packs/rare.webp";
@@ -101,7 +101,7 @@ class App extends Component {
     packs.forEach((pack) => {
       // look for the pack in localpacks
       if (localPacks && localPacks.length > 0) {
-        const localPack =  localPacks.find(
+        const localPack = localPacks.find(
           (localPack) => localPack.id === pack.id
         );
         if (localPack && localPack.untradeable !== null) {
@@ -168,11 +168,19 @@ class App extends Component {
   handleChange(e) {
     this.setState({ packSearch: e.target.value });
     // filter the pack list by packs that have the search term in their name
+    // modify packs so that not found packs have the state of hidden
+
     // set state on packs
+
     this.setState({
-      packs: this.state.allPacks.filter((pack) =>
-        pack.name.toLowerCase().includes(e.target.value.toLowerCase())
-      ),
+      packs: this.state.allPacks.filter((pack) => {
+        if (pack.name.toLowerCase().includes(e.target.value.toLowerCase())) {
+          pack.hidden = false;
+        } else {
+          pack.hidden = true;
+        }
+        return pack;
+      }),
     });
   }
 

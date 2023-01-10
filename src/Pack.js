@@ -7,8 +7,11 @@ import { Component } from "react";
 class Pack extends Component {
   render() {
     let imageLink = "";
-    const { id, image, name, coin_value, fp, tradeable, untradeable, discard, guaranteed_rating, description } =
+    const { hidden, id, image, name, coin_value, fp, tradeable, untradeable, discard, guaranteed_rating, description } =
       this.props.pack;
+    if (hidden) {
+      return null;
+    }
     const onCountUpdate = this.props.onCountUpdate;
     switch (image) {
       case "gold":
@@ -30,6 +33,7 @@ class Pack extends Component {
       default:
           break;
     }
+
     return (
       <div className={"packs__item"}>
         <div className="packs__item__title">
