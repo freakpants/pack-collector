@@ -7,8 +7,19 @@ import { Component } from "react";
 class Pack extends Component {
   render() {
     let imageLink = "";
-    const { hidden, id, image, name, coin_value, fp, tradeable, untradeable, discard, guaranteed_rating, description } =
+    const { hidden, id, image, name, tradeable, untradeable, guaranteed_rating, description } =
       this.props.pack;
+
+    let { discard, coin_value, fp } = this.props.pack;
+    // cast to int
+    discard = parseInt(discard);
+    coin_value = parseInt(coin_value);
+    fp = parseInt(fp);
+
+    discard = discard.toLocaleString("de-CH");
+    coin_value = coin_value.toLocaleString("de-CH");
+    fp = fp.toLocaleString("de-CH");
+
     if (hidden) {
       return null;
     }
