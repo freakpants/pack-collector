@@ -256,7 +256,7 @@ class App extends Component {
       totalCoins += (pack.tradeable + pack.untradeable) * pack.coin_value;
     });
     
-    totalCoins = totalCoins.toLocaleString("de-CH");
+
 
     this.setState({ totalCoins: totalCoins });
 
@@ -266,7 +266,7 @@ class App extends Component {
       totalDiscard += pack.tradeable * pack.discard;
     });
 
-    totalDiscard = totalDiscard.toLocaleString("de-CH");
+
 
     this.setState({ totalDiscard: totalDiscard });
 
@@ -276,7 +276,7 @@ class App extends Component {
       totalFP += (pack.tradeable + pack.untradeable) * pack.fp;
     });
 
-    totalFP = totalFP.toLocaleString("de-CH");
+
 
     this.setState({ totalFP: totalFP });
 
@@ -418,13 +418,13 @@ class App extends Component {
           <div className={"statistics__item"}>
             <span className={"statistics__item__header"}>Total Coins</span>
             <span className={"statistics__item__value statistics__item__coins"}>
-              {this.state.totalCoins}
+              {this.state.totalCoins.toLocaleString("de-CH")}
             </span>
           </div>
           <div className={"statistics__item"}>
             <span className={"statistics__item__header"}>Minimum Discard</span>
             <span className={"statistics__item__value statistics__item__coins"}>
-              {this.state.totalDiscard}
+              {this.state.totalDiscard.toLocaleString("de-CH")}
             </span>
           </div>
           <div className={"statistics__item"}>
@@ -432,7 +432,7 @@ class App extends Component {
             <span
               className={"statistics__item__value statistics__item__points"}
             >
-              {this.state.totalFP}
+              {this.state.totalFP.toLocaleString("de-CH")}
             </span>
           </div>
           <div className={"statistics__item"}>
