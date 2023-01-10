@@ -95,12 +95,13 @@ class App extends Component {
   }
 
   addDefaultCounts(packs) {
-    const localPacks = localStorage.getItem("packs");
+    let localPacks = localStorage.getItem("packs");
+    localPacks = JSON.parse(localPacks);
     // add untradeable and tradeable = 0 for every pack
     packs.forEach((pack) => {
       // look for the pack in localpacks
-      if (localPacks) {
-        const localPack = JSON.parse(localPacks).find(
+      if (localPacks && localPacks.length > 0) {
+        const localPack =  localPacks.find(
           (localPack) => localPack.id === pack.id
         );
         if (localPack && localPack.untradeable !== null) {
