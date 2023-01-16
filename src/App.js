@@ -439,8 +439,9 @@ class App extends Component {
             <span className={"statistics__item__header"}>Total Cash</span>
             <span className={"statistics__item__value"}>
               €{this.state.totalCash.toLocaleString("de-CH")} / $
-              {(Math.floor(this.state.totalCash * 0.97 * 100) / 100).toLocaleString("de-CH")} / £
-              {(Math.floor(this.state.totalCash * 0.87 * 100) / 100).toLocaleString("de-CH")}
+              {(Math.floor(this.state.totalCash * 1.08 * 100) / 100).toLocaleString("de-CH")} / £
+              {(Math.floor(this.state.totalCash * 0.89 * 100) / 100).toLocaleString("de-CH")} / CHF
+              {(Math.floor(this.state.totalCash * 1.01 * 100) / 100).toLocaleString("de-CH")}
             </span>
           </div>
         </div>
