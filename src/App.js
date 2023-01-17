@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 import { getDatabase, set, ref, onValue } from "firebase/database";
 
-import React, { Component } from "react";
+import React, { Component, createRef, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import Pack from "./Pack";
@@ -23,6 +23,7 @@ import RarePack from "./packs/rare.webp";
 import PrimePack from "./packs/prime.webp";
 import HeroesPack from "./packs/heroes.png";
 import ChampsPack from "./packs/champs.webp";
+import { useScreenshot } from 'use-react-screenshot'
 
 class App extends Component {
   constructor(props) {
@@ -331,6 +332,8 @@ class App extends Component {
       },
     });
 
+
+
     /*
             <img
           onClick={this.triggerTwitterLogin}
@@ -367,7 +370,6 @@ class App extends Component {
             </div>
           </div>
         )}
-
         <div className={"logo"}>
           <img className={"logo__img"} src={Logo} alt="FUT23 Pack Collector" />
           <div className={"logo__twitter"}>
@@ -615,3 +617,23 @@ class App extends Component {
   }
 }
 export default App;
+
+export function Screenshot(){
+
+  const [image, takeScreenshot] = useScreenshot()
+  const getImage = () => takeScreenshot(ref.current)
+  const width = 300
+  return (
+    <div>
+      <div>
+        <button style={{ marginBottom: '10px' }} onClick={getImage}>
+          Take screenshot
+        </button>
+      </div>
+      <img width={width} src={image} alt={'Screenshot'} />
+      <div ref={ref}>
+
+      </div>
+    </div>
+  )
+};
