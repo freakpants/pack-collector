@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 import { getDatabase, set, ref, onValue } from "firebase/database";
 
-import React, { Component, createRef, useState } from "react";
+import React, { Component } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import Pack from "./Pack";
@@ -219,13 +219,15 @@ class App extends Component {
                 case "8613":
                   eaId = "6405";
                   break;
+                default:
+                  break;
                 
               }
 
               console.log("looking for pack with ea_id: " + eaId);
 
               // filter packs, get the pack with the eaId
-              const packToUpdate = packs.find((pack) => pack.ea_id == eaId);
+              const packToUpdate = packs.find((pack) => pack.ea_id === eaId);
 
               if (packToUpdate) {
                 console.log("updating " + packToUpdate.name);
@@ -235,17 +237,17 @@ class App extends Component {
                 // if the pack has 4 digits and the first digit is 6, try to find the pack with the last 3 digits
                 console.log("length of eaid is " + eaId.length);
                 console.log("first digit is " + eaId[0]);
-                if (eaId.length == "4" && (eaId[0] == "6" || eaId[0] == "8")) {
+                if (eaId.length === "4" && (eaId[0] === "6" || eaId[0] === "8")) {
                   const shortie = eaId.substring(1, 4);
                   console.log("looking for pack with ea_id: " + shortie);
                   const packToUpdate = packs.find(
-                    (pack) => pack.ea_id == eaId.substring(1, 4)
+                    (pack) => pack.ea_id === eaId.substring(1, 4)
                   );
                   if (packToUpdate) {
                     console.log("updating " + packToUpdate.name);
                     // get the previous counts
                     const previousPack = this.state.packs.find(
-                      (pack) => pack.id == packToUpdate.id
+                      (pack) => pack.id === packToUpdate.id
                     );
                     this.countUpdate(
                       packToUpdate.id,
@@ -516,14 +518,6 @@ class App extends Component {
               target="_blank"
             >
               <img alt="Twitter Logo" src={Twitter} /> Kimpembro
-            </a>{" "}
-            x{" "}
-            <a
-              href="https://twitter.com/Fleck_GFX"
-              rel="noreferrer"
-              target="_blank"
-            >
-              <img alt="Twitter Logo" src={Twitter} /> Fleck
             </a>
           </div>
         </div>
