@@ -7,8 +7,10 @@ import { Component } from "react";
 class Pack extends Component {
   render() {
     let imageLink = "";
-    const { hidden, id, image, name, tradeable, untradeable, guaranteed_rating, description } =
+    const { hidden, id, image, name, tradeable, untradeable, guaranteed_rating, description} =
       this.props.pack;
+
+    const hideUnassignedMode = this.props.hideUnassignedMode;
 
     let { discard, coin_value, fp } = this.props.pack;
     // cast to int
@@ -20,7 +22,7 @@ class Pack extends Component {
     coin_value = coin_value.toLocaleString("de-CH");
     fp = fp.toLocaleString("de-CH");
 
-    if (hidden) {
+    if (hidden || (hideUnassignedMode && untradeable === 0 && tradeable === 0)) {
       return null;
     }
     const onCountUpdate = this.props.onCountUpdate;

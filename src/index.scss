@@ -583,3 +583,12 @@ h1 {
 .cloudArea{
   position: absolute;
 }
+
+
+.packsNotFound{
+  display: flex;
+  color: red;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}

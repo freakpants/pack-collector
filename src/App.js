@@ -23,7 +23,7 @@ import RarePack from "./packs/rare.webp";
 import PrimePack from "./packs/prime.webp";
 import HeroesPack from "./packs/heroes.png";
 import ChampsPack from "./packs/champs.webp";
-import { useScreenshot } from 'use-react-screenshot'
+import { useScreenshot } from "use-react-screenshot";
 
 class App extends Component {
   constructor(props) {
@@ -39,13 +39,16 @@ class App extends Component {
       totalFP: 0,
       totalCash: 0,
       spreadSheetMode: false,
+      hideUnassignedMode: false,
       discard: 0,
       totalDiscard: 0,
       user: false,
+      packIdsNotFound: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.updateTotals = this.updateTotals.bind(this);
     this.handleSpreadMode = this.handleSpreadMode.bind(this);
+    this.handleUnassignedMode = this.handleUnassignedMode.bind(this);
     this.addDefaultCounts = this.addDefaultCounts.bind(this);
     this.triggerTwitterLogin = this.triggerTwitterLogin.bind(this);
     this.triggerGoogleLogin = this.triggerGoogleLogin.bind(this);
@@ -160,7 +163,125 @@ class App extends Component {
       .then((response) => {
         const packs = this.addDefaultCounts(response.data);
         console.log(packs);
+
         this.setState({ packs: packs, allPacks: packs }, () => {
+          // if the url has pack counts, go through them and add them
+          const urlParams = new URLSearchParams(window.location.search);
+          const packCounts = urlParams.get("packs");
+          if (packCounts) {
+            // set all pack counts to 0
+            this.state.packs.forEach((pack) => {
+              this.countUpdate(pack.id, 0, false);
+              this.countUpdate(pack.id, 0, true);
+            });
+
+            const urlPacks = packCounts.split("-");
+            urlPacks.forEach((pack) => {
+              const packSplit = pack.split(",");
+              let eaId = packSplit[0];
+              const untradeable = parseInt(packSplit[1]);
+              const tradeable = parseInt(packSplit[2]);
+
+              switch (eaId) {
+                case "513":
+                  eaId = "1213";
+                  break;
+                case "8601":
+                  eaId = "6308";
+                  break;
+                case "8602":
+                  eaId = "309";
+                  break;
+                case "8603":
+                  eaId = "313";
+                  break;
+                case "8604":
+                  eaId = "727";
+                  break;
+                case "8605":
+                  eaId = "2212";
+                  break;
+                case "8606":
+                  eaId = "6402";
+                  break;
+                case "8607":
+                  eaId = "6403";
+                  break;
+                case "8608":
+                  eaId = "5404";
+                  break;
+                case "8609":
+                  eaId = "6518";
+                  break;
+                case "8611":
+                  eaId = "6315";
+                  break;
+                case "8613":
+                  eaId = "6405";
+                  break;
+                
+              }
+
+              console.log("looking for pack with ea_id: " + eaId);
+
+              // filter packs, get the pack with the eaId
+              const packToUpdate = packs.find((pack) => pack.ea_id == eaId);
+
+              if (packToUpdate) {
+                console.log("updating " + packToUpdate.name);
+                this.countUpdate(packToUpdate.id, untradeable, false);
+                this.countUpdate(packToUpdate.id, tradeable, true);
+              } else {
+                // if the pack has 4 digits and the first digit is 6, try to find the pack with the last 3 digits
+                console.log("length of eaid is " + eaId.length);
+                console.log("first digit is " + eaId[0]);
+                if (eaId.length == "4" && (eaId[0] == "6" || eaId[0] == "8")) {
+                  const shortie = eaId.substring(1, 4);
+                  console.log("looking for pack with ea_id: " + shortie);
+                  const packToUpdate = packs.find(
+                    (pack) => pack.ea_id == eaId.substring(1, 4)
+                  );
+                  if (packToUpdate) {
+                    console.log("updating " + packToUpdate.name);
+                    // get the previous counts
+                    const previousPack = this.state.packs.find(
+                      (pack) => pack.id == packToUpdate.id
+                    );
+                    this.countUpdate(
+                      packToUpdate.id,
+                      untradeable + previousPack.untradeable,
+                      false
+                    );
+                    this.countUpdate(
+                      packToUpdate.id,
+                      tradeable + previousPack.tradeable,
+                      true
+                    );
+                  } else {
+                    console.log("pack not found");
+                    // add to the list of packs that are not found
+                    let packIdsNotFound = this.state.packIdsNotFound;
+                    // push to array
+                    packIdsNotFound.push(eaId);
+
+                    this.setState({
+                      packIdsNotFound: packIdsNotFound,
+                    });
+                  }
+                } else {
+                  console.log("pack not found");
+                  // add to the list of packs that are not found
+                  let packIdsNotFound = this.state.packIdsNotFound;
+                  // push to array
+                  packIdsNotFound.push(eaId);
+
+                  this.setState({
+                    packIdsNotFound: packIdsNotFound,
+                  });
+                }
+              }
+            });
+          }
           this.updateTotals();
         });
       });
@@ -189,6 +310,10 @@ class App extends Component {
     this.setState({ spreadSheetMode: e.target.checked });
   }
 
+  handleUnassignedMode(e) {
+    this.setState({ hideUnassignedMode: e.target.checked });
+  }
+
   getPackIcon(pack) {
     let imageLink = "";
 
@@ -215,6 +340,7 @@ class App extends Component {
   }
 
   countUpdate = (packId, count, tradeable) => {
+    console.log("updating " + packId + " with " + count + " " + tradeable);
     // update the count of a pack
     // get the pack
     const pack = this.state.packs.find((pack) => pack.id === packId);
@@ -256,8 +382,6 @@ class App extends Component {
     this.state.packs.forEach((pack) => {
       totalCoins += (pack.tradeable + pack.untradeable) * pack.coin_value;
     });
-    
-
 
     this.setState({ totalCoins: totalCoins });
 
@@ -267,8 +391,6 @@ class App extends Component {
       totalDiscard += pack.tradeable * pack.discard;
     });
 
-
-
     this.setState({ totalDiscard: totalDiscard });
 
     // calculate total fp
@@ -276,8 +398,6 @@ class App extends Component {
     this.state.packs.forEach((pack) => {
       totalFP += (pack.tradeable + pack.untradeable) * pack.fp;
     });
-
-
 
     this.setState({ totalFP: totalFP });
 
@@ -332,7 +452,16 @@ class App extends Component {
       },
     });
 
-
+    let filteredPacks;  
+    // if spreadsheet mode, filter packs
+    if(this.state.spreadSheetMode && this.state.hideUnassignedMode) {
+      filteredPacks = this.state.packs.filter((pack) => {
+        return pack.untradeable > 0 || pack.tradeable > 0;
+      }
+      );
+    } else {
+      filteredPacks = this.state.packs;
+    }
 
     /*
             <img
@@ -441,12 +570,31 @@ class App extends Component {
             <span className={"statistics__item__header"}>Total Cash</span>
             <span className={"statistics__item__value"}>
               €{this.state.totalCash.toLocaleString("de-CH")} / $
-              {(Math.floor(this.state.totalCash * 1.08 * 100) / 100).toLocaleString("de-CH")} / £
-              {(Math.floor(this.state.totalCash * 0.89 * 100) / 100).toLocaleString("de-CH")} / CHF
-              {(Math.floor(this.state.totalCash * 1.01 * 100) / 100).toLocaleString("de-CH")}
+              {(
+                Math.floor(this.state.totalCash * 1.08 * 100) / 100
+              ).toLocaleString("de-CH")}{" "}
+              / £
+              {(
+                Math.floor(this.state.totalCash * 0.89 * 100) / 100
+              ).toLocaleString("de-CH")}{" "}
+              / CHF
+              {(
+                Math.floor(this.state.totalCash * 1.01 * 100) / 100
+              ).toLocaleString("de-CH")}
             </span>
           </div>
         </div>
+        {this.state.packIdsNotFound.length > 0 && (
+          <div className={"packsNotFound"}>
+            <span className={"packsNotFound__header"}>
+              The following packs were not found, please report this to FUTCoder
+              on Twitter:
+            </span>
+            <span className={"packsNotFound__list"}>
+              &nbsp;{this.state.packIdsNotFound.join(", ")}
+            </span>
+          </div>
+        )}
         <div className="filter">
           <FormGroup>
             <input
@@ -460,10 +608,14 @@ class App extends Component {
                 this.props.actions.updateInput(this.state.inputValue)
               }
             />
-            <FormControlLabel
+            <div>            <FormControlLabel
               control={<Checkbox onChange={this.handleSpreadMode} />}
               label="Spreadsheet Mode"
-            />
+            /><FormControlLabel
+              control={<Checkbox onChange={this.handleUnassignedMode} />}
+              label="Hide Empty Packs"
+            /></div>
+
           </FormGroup>
         </div>
         {!this.state.spreadSheetMode && (
@@ -472,6 +624,7 @@ class App extends Component {
               <Pack
                 key={pack.id}
                 onCountUpdate={this.countUpdate}
+                hideUnassignedMode={this.state.hideUnassignedMode}
                 pack={pack}
               />
             ))}
@@ -496,7 +649,7 @@ class App extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.packs.map((pack) => (
+                {filteredPacks.map((pack) => (
                   <tr>
                     <td className={"nameCell"}>
                       <div>
@@ -618,22 +771,19 @@ class App extends Component {
 }
 export default App;
 
-export function Screenshot(){
-
-  const [image, takeScreenshot] = useScreenshot()
-  const getImage = () => takeScreenshot(ref.current)
-  const width = 300
+export function Screenshot() {
+  const [image, takeScreenshot] = useScreenshot();
+  const getImage = () => takeScreenshot(ref.current);
+  const width = 300;
   return (
     <div>
       <div>
-        <button style={{ marginBottom: '10px' }} onClick={getImage}>
+        <button style={{ marginBottom: "10px" }} onClick={getImage}>
           Take screenshot
         </button>
       </div>
-      <img width={width} src={image} alt={'Screenshot'} />
-      <div ref={ref}>
-
-      </div>
+      <img width={width} src={image} alt={"Screenshot"} />
+      <div ref={ref}></div>
     </div>
-  )
-};
+  );
+}
