@@ -2,7 +2,7 @@
   "name": "pack-collector",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://freakpants.github.io/pack-collector",
+  "homepage": "https://futcoder.ch/pack-collector/",
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
