@@ -57,6 +57,11 @@ h1 {
   justify-content: center;
   align-items: center;
 
+  @media screen and (max-width: 768px) {
+    margin-top: 4vh;
+  }
+    
+
   &__twitter {
     margin-top: 1rem;
     font-size: 1rem;
@@ -577,13 +582,38 @@ h1 {
 .displayName{
   color: $beige;
   text-transform: uppercase;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+  }
 }
 
 .cloudArea{
   position: absolute;
   left: 120px;
+  top: 0px;
+  @media screen and (max-width: 768px) {
+    position: relative;
+    left: 0px;
+  }
 }
 
+.cloudButtons{
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    padding: 1vh;
+  }
+}
+
+.MuiButton-root.MuiButton-root{
+  font-family: 'UltimateTeamCondensed';
+  font-size: 1.5rem;
+  background-color: rgb(185, 0, 64);
+}
 
 .packsNotFound{
   display: flex;
@@ -591,4 +621,16 @@ h1 {
   justify-content: center;
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
+}
+
+.googleLogin{
+  position: absolute;
+  left: 120px;
+  top: 2vh;
+}
+
+@media screen and (max-width: 768px) {
+  .googleLogin{
+    position: relative;
+  }
 }
