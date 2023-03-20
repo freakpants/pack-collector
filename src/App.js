@@ -476,31 +476,6 @@ class App extends Component {
 
     return (
       <ThemeProvider theme={theme}>
-        {!this.state.user && (
-          <img
-            alt="Google Login"
-            onClick={this.triggerGoogleLogin}
-            src={GoogleLoginButton}
-          />
-        )}
-        {this.state.user && (
-          <div className={"cloudArea"}>
-            <div className={"displayName"}>
-              Logged in as {this.state.user.displayName}
-            </div>
-            <div>
-              <Button onClick={this.triggerGoogleLogout} variant="contained">
-                Logout
-              </Button>
-              <Button onClick={this.savePacks} variant="contained">
-                Save Packs
-              </Button>
-              <Button onClick={this.loadPacks} variant="contained">
-                Load Packs
-              </Button>
-            </div>
-          </div>
-        )}
         <div className={"logo"}>
           <img className={"logo__img"} src={Logo} alt="FUT23 Pack Collector" />
           <div className={"logo__twitter"}>
@@ -521,6 +496,32 @@ class App extends Component {
             </a>
           </div>
         </div>
+        {!this.state.user && (
+          <img
+            className={"googleLogin"}
+            alt="Google Login"
+            onClick={this.triggerGoogleLogin}
+            src={GoogleLoginButton}
+          />
+        )}
+        {this.state.user && (
+          <div className={"cloudArea"}>
+            <div className={"displayName"}>
+              Logged in as {this.state.user.displayName}
+            </div>
+            <div className={"cloudButtons"}>
+              <Button onClick={this.triggerGoogleLogout} variant="contained">
+                Logout
+              </Button>
+              <Button onClick={this.savePacks} variant="contained">
+                Save Packs
+              </Button>
+              <Button onClick={this.loadPacks} variant="contained">
+                Load Packs
+              </Button>
+            </div>
+          </div>
+        )}
         <div className={"statistics"}>
           <div className={"statistics__item"}>
             <span className={"statistics__item__header"}>Untradeable</span>
