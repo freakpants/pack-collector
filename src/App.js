@@ -195,9 +195,11 @@ class App extends Component {
                 case "8603":
                   eaId = "313";
                   break;
+                case "6004":
                 case "8604":
                   eaId = "727";
                   break;
+                case "6401":
                 case "8605":
                   eaId = "2212";
                   break;
@@ -207,6 +209,7 @@ class App extends Component {
                 case "8607":
                   eaId = "6403";
                   break;
+                case "6404":
                 case "8608":
                   eaId = "5404";
                   break;
