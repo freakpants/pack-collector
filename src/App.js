@@ -757,8 +757,8 @@ class App extends Component {
                 ))}
                 <tr>
                   <td>Total</td>
-                  <td>{this.state.tradeablePacks}</td>
                   <td>{this.state.untradeablePacks}</td>
+                  <td>{this.state.tradeablePacks}</td>
                   <td>{this.state.totalPacks}</td>
                   <td>{this.state.totalCoins}</td>
                   <td>{this.state.totalDiscard}</td>
