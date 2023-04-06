@@ -237,7 +237,7 @@ class App extends Component {
               console.log("looking for pack with ea_id: " + eaId);
 
               // filter packs, get the pack with the eaId
-              const packToUpdate = packs.find((pack) => pack.ea_id === eaId);
+              const packToUpdate = packs.find((pack) => parseInt(pack.ea_id) === parseInt(eaId));
 
               if (packToUpdate) {
                 console.log("updating " + packToUpdate.name);
