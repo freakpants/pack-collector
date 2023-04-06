@@ -183,6 +183,9 @@ class App extends Component {
               const tradeable = parseInt(packSplit[2]);
 
               switch (eaId) {
+                case "6530":
+                  eaId = "530";
+                  break;
                 case "513":
                   eaId = "1213";
                   break;
