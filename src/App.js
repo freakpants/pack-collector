@@ -490,14 +490,14 @@ class App extends Component {
     return (
       <ThemeProvider theme={theme}>
         <div className={"logo"}>
-          <img className={"logo__img"} src={Logo} alt="FUT23 Pack Collector" />
+          <img className={"logo__img"} src={Logo} alt="FUT23 Pack Collector" width={"835px"} height={"264px"} />
           <div className={"logo__twitter"}>
             <a
               href="https://twitter.com/FUTCoder"
               rel="noreferrer"
               target="_blank"
             >
-              <img alt="Twitter Logo" src={Twitter} /> FUT Coder
+              <img alt="Twitter Logo" src={Twitter} width={"16px"} height={"16px"} /> FUT Coder
             </a>{" "}
             x{" "}
             <a
@@ -505,7 +505,7 @@ class App extends Component {
               rel="noreferrer"
               target="_blank"
             >
-              <img alt="Twitter Logo" src={Twitter} /> Kimpembro
+              <img alt="Twitter Logo" src={Twitter} width={"16px"} height={"16px"} /> Kimpembro
             </a>
           </div>
         </div>
@@ -515,6 +515,8 @@ class App extends Component {
             alt="Google Login"
             onClick={this.triggerGoogleLogin}
             src={GoogleLoginButton}
+            width={"191px"}
+            height={"46px"}
           />
         )}
         {this.state.user && (
@@ -665,6 +667,8 @@ class App extends Component {
                           alt="smallPacks"
                           className={"smallPacks"}
                           src={this.getPackIcon(pack)}
+                          width={"252px"}
+                          height={"366px"}
                         />
                       </div>
                       <div className={"packName"}>{pack.name}</div>

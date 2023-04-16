@@ -57,6 +57,8 @@ class Pack extends Component {
             alt={name}          
             className={"packs__item__preview__img"}
             src={imageLink}
+            width={"252px"}
+            height={"366px"}
           />
           <div className={"packs__item__preview__data"}>
             <span className={"packs__item__pricing__coins"}>Min Discard: {discard}</span>
