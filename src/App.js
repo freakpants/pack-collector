@@ -232,6 +232,9 @@ class App extends Component {
                 case "8613":
                   eaId = "6405";
                   break;
+                case "6304":
+                  eaId = "304";
+                  break;
                 default:
                   break;
                 
